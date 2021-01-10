@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Keras-Tensorflow-Sandbox", "Keras-Tensorflow-Sandbox\Keras-Tensorflow-Sandbox.pyproj", "{C559008D-9E39-496F-8FEF-4221385C3367}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C559008D-9E39-496F-8FEF-4221385C3367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C559008D-9E39-496F-8FEF-4221385C3367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {92FC29B9-AD50-493D-83D8-51DD183E7144}
+	EndGlobalSection
+EndGlobal
