@@ -11,6 +11,8 @@ from keras.models import Sequential
 from keras.models import model_from_json
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img, array_to_img
 
+print(os.getcwd())
+
 # Function Definitions
 #region
 
@@ -101,14 +103,14 @@ def save_model(model):
 
 results_directory_name = "Results"
 create_result_container_directory(os.getcwd(), results_directory_name)
-directory = r'C:\Users\jonny\Desktop\dataset\dataset\train'
+training_directory = str(os.getcwd() + "\\Dataset\\train")
 
-image_width = 48
-image_height = 48
+image_width = 36
+image_height = 36
 image_channels = 1
 color_mode = 'grayscale'
 class_mode = 'categorical'
-batch_size = 16
+batch_size = 22
 seed = 101
 
 
@@ -116,7 +118,7 @@ data_generator_train = ImageDataGenerator(rescale=1./255, validation_split=0.1, 
 data_generator_test = ImageDataGenerator(rescale=1./255)
 
 train_data_gen = data_generator_train.flow_from_directory(
-    directory = directory,  # path to the directory containing the subclasses
+    directory = training_directory,  # path to the directory containing the subclasses
     target_size = (image_width, image_height),    # the size of the images will be set to this
     color_mode = color_mode,     # determine whether the image is grayscale, rgb or rgba
     class_mode = class_mode,     # there are more than 2 classes, so this is set to categorical
@@ -126,7 +128,7 @@ train_data_gen = data_generator_train.flow_from_directory(
     subset = 'training')      # this is the training portion of the data
 
 validation_data_gen = data_generator_train.flow_from_directory(
-    directory = directory,      # path to the directory containing the subclasses
+    directory = training_directory,      # path to the directory containing the subclasses
     target_size = (image_width, image_height),    # the size of the images will be set to this
     color_mode = color_mode,     # determine whether the image is grayscale, rgb or rgba
     class_mode = class_mode,     # there are more than 2 classes, so this is set to categorical
@@ -142,15 +144,14 @@ val_steps = validation_data_gen.samples/batch_size
 model = keras.Sequential(
     [
         keras.layers.Flatten(input_shape=[image_width, image_height, image_channels]),
-        keras.layers.Dense(300, activation = 'swish'),
-        keras.layers.Dense(100, activation = 'swish'),
+        keras.layers.Dense(512, activation = 'tanh'),
         keras.layers.Dense(7, activation = 'softmax')
     ]
 )
 
 model.compile(loss=[keras.losses.CategoricalCrossentropy(from_logits=True)], optimizer=keras.optimizers.SGD(lr=0.01), metrics=["accuracy"])
 
-history = model.fit(train_data_gen, epochs=40, steps_per_epoch=train_steps, validation_data=validation_data_gen, validation_steps=val_steps)
+history = model.fit(train_data_gen, epochs=5, steps_per_epoch=train_steps, validation_data=validation_data_gen, validation_steps=val_steps)
 
 scores = model.evaluate(validation_data_gen, verbose=0)
 percentile_score = round(scores[1]*100, 2)
